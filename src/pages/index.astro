@@ -1,0 +1,145 @@
+---
+import { getCollection, render } from "astro:content";
+import { ExternalLinkIcon, MailIcon } from "@lucide/astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import WorkCard from "@/components/WorkCard.astro";
+import WorkLightbox from "@/components/WorkLightbox.astro";
+import { siteProfile } from "@/data/site";
+
+const entries = await getCollection("work");
+const visibleEntries = entries.filter((entry) => entry.data.show !== false);
+const sortedEntries = visibleEntries.sort((a, b) => Number(b.data.year) - Number(a.data.year) || a.data.title.localeCompare(b.data.title));
+const renderedEntries = await Promise.all(
+  sortedEntries.map(async (entry) => ({
+    entry,
+    Content: (await render(entry)).Content,
+  })),
+);
+
+const featured = sortedEntries.filter((entry) => entry.data.featured);
+const graphics = sortedEntries.filter((entry) => entry.data.category === "graphics");
+const development = sortedEntries.filter((entry) => entry.data.category === "development");
+---
+
+<BaseLayout title={`${siteProfile.name} - ${siteProfile.title}`} description={siteProfile.bio}>
+  <main class="mx-auto min-h-screen w-full max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
+    <header class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-5">
+      <a href="#" class="font-display text-lg font-semibold text-chalk">{siteProfile.name}</a>
+      <nav class="flex items-center gap-2 text-sm font-semibold text-white/70" aria-label="Primary">
+        <a class="rounded-full px-3 py-2 transition hover:bg-white/8 hover:text-white" href="#graphics">Graphics</a>
+        <a class="rounded-full px-3 py-2 transition hover:bg-white/8 hover:text-white" href="#development">Development</a>
+        <a class="rounded-full px-3 py-2 transition hover:bg-white/8 hover:text-white" href={`mailto:${siteProfile.email}`}>Contact</a>
+      </nav>
+    </header>
+
+    <section class="grid gap-10 py-12 md:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)] md:items-end md:py-16">
+      <div>
+        <p class="text-sm font-bold uppercase tracking-[0.22em] text-signal">{siteProfile.location}</p>
+        <h1 class="mt-5 max-w-4xl font-display text-5xl font-bold leading-[1.02] text-chalk sm:text-6xl lg:text-7xl">
+          Graphics systems and code-driven experiences.
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-muted">{siteProfile.bio}</p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a class="inline-flex items-center gap-2 rounded-md bg-chalk px-4 py-3 text-sm font-bold text-ink transition hover:bg-signal" href={siteProfile.linkedin} target="_blank" rel="noreferrer">
+            <ExternalLinkIcon size={17} aria-hidden="true" /> LinkedIn
+          </a>
+          <a class="inline-flex items-center gap-2 rounded-md border border-white/12 px-4 py-3 text-sm font-bold text-chalk transition hover:border-ember/70" href={siteProfile.instagram} target="_blank" rel="noreferrer">
+            <ExternalLinkIcon size={17} aria-hidden="true" /> Instagram
+          </a>
+          <a class="inline-flex items-center gap-2 rounded-md border border-white/12 px-4 py-3 text-sm font-bold text-chalk transition hover:border-signal/70" href={`mailto:${siteProfile.email}`}>
+            <MailIcon size={17} aria-hidden="true" /> Email
+          </a>
+        </div>
+      </div>
+      <aside class="rounded-lg border border-white/10 bg-white/[0.035] p-5">
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">Featured Work</p>
+        <div class="mt-5 space-y-4">
+          {featured.slice(0, 3).map((entry) => (
+            <button class="block w-full rounded-md border border-white/8 bg-ink/40 p-4 text-left transition hover:border-signal/50" type="button" data-open-lightbox={`work-${entry.id}`}>
+              <span class="text-xs font-semibold uppercase tracking-[0.16em] text-signal">{entry.data.category}</span>
+              <span class="mt-2 block font-display text-lg font-semibold text-chalk">{entry.data.title}</span>
+              <span class="mt-1 block text-sm leading-6 text-muted">{entry.data.summary}</span>
+            </button>
+          ))}
+        </div>
+      </aside>
+    </section>
+
+    <section id="graphics" class="border-t border-white/10 py-12">
+      <div class="mb-7 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-[0.2em] text-signal">Selected Work</p>
+          <h2 class="mt-2 font-display text-3xl font-semibold text-chalk md:text-4xl">Graphics</h2>
+        </div>
+        <p class="max-w-xl text-sm leading-6 text-muted">Show packages, motion systems, campaign graphics, and visual identities ready for your real credits and imagery.</p>
+      </div>
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {graphics.map((entry) => <WorkCard entry={entry} />)}
+      </div>
+    </section>
+
+    <section id="development" class="border-t border-white/10 py-12">
+      <div class="mb-7 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-[0.2em] text-signal">Selected Work</p>
+          <h2 class="mt-2 font-display text-3xl font-semibold text-chalk md:text-4xl">Development</h2>
+        </div>
+        <p class="max-w-xl text-sm leading-6 text-muted">Apps, prototypes, dashboards, and code projects with space for technical context, links, and outcomes.</p>
+      </div>
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {development.map((entry) => <WorkCard entry={entry} />)}
+      </div>
+    </section>
+  </main>
+
+  {renderedEntries.map(({ entry, Content }) => <WorkLightbox entry={entry} Content={Content} />)}
+
+  <script>
+    const openButtons = Array.from(document.querySelectorAll<HTMLElement>("[data-open-lightbox]"));
+    const closeButtons = Array.from(document.querySelectorAll<HTMLElement>("[data-close-lightbox]"));
+    let activeLightbox: HTMLElement | null = null;
+    let previousFocus: HTMLElement | null = null;
+
+    function openLightbox(id: string | null) {
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (!target) return;
+      previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      activeLightbox = target;
+      target.classList.remove("hidden");
+      target.classList.add("flex");
+      document.body.classList.add("modal-open");
+      const closeButton = target.querySelector<HTMLButtonElement>("[data-close-lightbox]");
+      closeButton?.focus();
+    }
+
+    function closeLightbox() {
+      if (!activeLightbox) return;
+      activeLightbox.classList.add("hidden");
+      activeLightbox.classList.remove("flex");
+      document.body.classList.remove("modal-open");
+      activeLightbox = null;
+      previousFocus?.focus?.();
+    }
+
+    openButtons.forEach((button) => {
+      button.addEventListener("click", () => openLightbox(button.getAttribute("data-open-lightbox")));
+    });
+
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", closeLightbox);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (event.target instanceof HTMLElement && event.target.matches("[data-lightbox]")) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { ArrowUpRightIcon } from "@lucide/astro";
+import VisualPanel from "./VisualPanel.astro";
+
+interface Props {
+  entry: CollectionEntry<"work">;
+}
+
+const { entry } = Astro.props;
+const detailId = `work-${entry.id}`;
+---
+
+<article class="group rounded-lg border border-white/10 bg-white/[0.035] p-3 transition duration-200 hover:-translate-y-1 hover:border-signal/50 hover:bg-white/[0.055]">
+  <button
+    class="block w-full text-left"
+    type="button"
+    data-open-lightbox={detailId}
+    aria-haspopup="dialog"
+    aria-controls={detailId}
+  >
+    <VisualPanel visual={entry.data.thumbnail} title={entry.data.title} label={entry.data.category} />
+    <div class="flex items-start justify-between gap-4 px-1 pb-1 pt-5">
+      <div>
+        <h3 class="font-display text-xl font-semibold leading-snug text-chalk">{entry.data.title}</h3>
+        <p class="mt-2 text-sm leading-6 text-muted">{entry.data.summary}</p>
+      </div>
+      <span class="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/10 text-signal transition group-hover:border-signal/60">
+        <ArrowUpRightIcon size={17} aria-hidden="true" />
+      </span>
+    </div>
+  </button>
+  <div class="mt-4 flex flex-wrap gap-2 px-1 pb-1">
+    {entry.data.tags.slice(0, 4).map((tag) => (
+      <span class="rounded-full border border-white/10 px-3 py-1 text-xs font-medium text-white/70">{tag}</span>
+    ))}
+  </div>
+</article>

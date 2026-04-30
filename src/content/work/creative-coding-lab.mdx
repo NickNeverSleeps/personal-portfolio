@@ -1,0 +1,44 @@
+---
+title: "Apex Legends Global Series"
+subtitle: "Data-driven broadcast graphics and API extensions"
+category: "graphics"
+summary: "A set of custom graphics systems that extended existing ALGS data into richer broadcast-ready experiences, including a POI drop draft graphic and a faster social media pipeline."
+year: "2024-present"
+role: "Creative Technology / Broadcast Graphics"
+tools: ["API Integration", "Graphics Systems", "Chrome Extension", "Broadcast Graphics"]
+tags: ["Data-Driven Graphics", "API Extension", "Broadcast"]
+show: true
+featured: false
+thumbnail: "visual-slate"
+gallery:
+  - title: "POI Drop Draft"
+    caption: "A broadcast graphic that visualized live and historical drop restrictions, combining team assignments, map art, spot names, and team branding into a playable on-air view."
+    visual: "visual-slate"
+  - title: "Social Media Graphic"
+    caption: "A full-frame and lower-third social system that let producers capture posts from Twitter or Reddit and push them into broadcast with far less friction."
+    visual: "visual-ember"
+---
+
+## Context
+
+This work was built for Apex Legends Global Series broadcast, where the upstream game data already existed but did not always map cleanly to the kinds of graphics and production tools needed on air.
+
+The opportunity was not just to consume the API, but to extend it into more useful, more readable, and more production-friendly broadcast experiences.
+
+Two of the clearest examples were a point-of-interest drop draft graphic and a custom social media pipeline. Both were designed to turn existing data or content sources into graphics that producers could actually play during a live show.
+
+## Approach
+
+The POI drop draft system tied into the existing upstream API from the game development team, then extended it with multiple upstream queries to build a richer output. The graphic combined team drop spots, the names of all available locations, map imagery, and team logos into a clearer live draft display, while also supporting cached views of previous drafts for reference and storytelling.
+
+The social media system solved a different production problem. Instead of building manual posts in Figma every time broadcast wanted to feature social content, I built a custom server workflow and Chrome extension that let producers capture Twitter or Reddit posts directly and push them into the graphics pipeline.
+
+That server-side extension flow made it possible to bypass API-key restrictions in the day-to-day production workflow while still keeping post capture fast and simple. The result was a social package that could output both a full-frame graphic and a lower third, depending on what the show needed.
+
+## Outcome
+
+The biggest value of this work was turning existing ALGS data into enhanced broadcast experiences rather than treating the upstream API as a fixed limit.
+
+The POI drop draft graphic gave production a more useful way to explain live strategy and revisit prior draft states, while the social media pipeline made it much faster to get relevant posts to air.
+
+Together, these systems reduced producer friction, replaced slower manual design workflows, and created graphics that were both more responsive to the live show and more directly tied to the underlying game data.

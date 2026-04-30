@@ -1,0 +1,58 @@
+---
+title: "SAGE - Stream Acquision and Graphics Engine"
+subtitle: "Stream Acquisition & Graphics Engine"
+category: "development"
+summary: "A web based dashboard to control an unlimited number of OBS instances"
+year: "2023-present"
+role: "Lead Developer"
+tools: ["NodeJS", "OBS", "Websockets"]
+tags: ["Development", "System Design", "Graphics System"]
+show: true
+featured: true
+thumbnail: "visual-ember"
+gallery:
+  - title: "Global Overview"
+    caption: "A centralized fleet view showing upstream assignments, machine health, dropped frames, and whether each OBS engine is selected to receive graphics, stream, or combined updates."
+    visual: "visual-ember"
+  - title: "Distributed Multiview"
+    caption: "A monitor wall of 40+ live outputs routed from cloud-managed control to a local broadcast switcher, making the scale and reliability of the system immediately visible."
+    visual: "visual-slate"
+---
+
+## Context
+
+SAGE was built for remote esports productions where the game still needs to be covered like a traditional broadcast.
+
+Some titles do not offer observer clients or any clean way to view the match outside the players' perspective. Before SAGE, those shows relied on ad hoc one-feed-per-PC workflows that were difficult to scale, route, and keep visually consistent in a live studio environment.
+
+The system centralizes remote ingest, data aggregation, and output assignment so operators and producers can bring Twitch, YouTube, Kick, and similar player streams into broadcast-ready OBS engines across distributed machines.
+
+Each engine maps to a specific upstream row and can be remapped as production needs change, while graphics updates such as player and team names stay synchronized with the selected output.
+
+The platform was developed incrementally over the last three years across dozens of productions, including World Series of Warzone, and has scaled to 40+ simultaneous outputs feeding a local broadcast switcher.
+
+## Approach
+
+SAGE was designed as a centralized control plane for distributed OBS execution.
+
+A local app running on each target machine can launch up to eight OBS engines, with every engine mapped to a specific upstream Google Sheet row that defines the active feed and graphics state.
+
+Those mappings can be reassigned live, giving operators a way to redistribute coverage quickly without rebuilding machine-level configurations.
+
+On the ingest side, the system opens supported Twitch, YouTube, Kick, and similar web streams, identifies the source payload, and injects the live stream into OBS browser sources over WebSockets.
+
+From there, SAGE manages the object-level updates needed to treat OBS like a lightweight graphics engine, including swapping large image sets, updating text fields, and changing colors so player and team information stays aligned with the selected output.
+
+Deployment was also part of the design problem, so the platform was built to favor centralized rollout and remote updates rather than one-off studio installs.
+
+## Outcome
+
+The result was a system that replaced fragile one-feed-per-PC workflows with a scalable, repeatable production model for remote esports coverage.
+
+Operators gained a single dashboard for machine status, engine assignment, graphics control, and stream health.
+
+Producers could adapt coverage without rebuilding the show around ad hoc hardware layouts.
+
+Over time, SAGE became the backbone for dozens of productions and proved its value at broadcast scale.
+
+The platform has driven 40+ simultaneous outputs from cloud-managed control to a local switcher, while reducing deployment friction, improving consistency across graphics updates, and making remote games without observer clients practical to cover in a live studio environment.

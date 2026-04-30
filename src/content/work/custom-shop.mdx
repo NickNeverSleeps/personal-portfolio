@@ -1,0 +1,49 @@
+---
+title: "Custom Shop App for Interactive Gameshow"
+subtitle: "Streamer Bowl VII live ordering and fulfillment"
+category: "development"
+summary: "A real-time shop and fulfillment system for Twitch Rivals' Streamer Bowl VII, replacing a messy Google Sheet workflow with a purpose-built live operations app."
+year: "2025"
+role: "Full Stack Development / Interface Design"
+tools: ["Node.js", "Express", "WebSockets", "Cloudflare Access"]
+tags: ["Live Ops", "Gameshow", "Fulfillment"]
+show: true
+featured: true
+thumbnail: "visual-lab"
+gallery:
+  - title: "Player Shop"
+    caption: "A handler-facing shop view showing current round, team budget, finite inventory, and the items available to order as phases unlock."
+    visual: "visual-lab"
+  - title: "Control Overview"
+    caption: "The backend control surface for round changes, wallet updates, inventory edits, and order management while the show is live."
+    visual: "visual-slate"
+  - title: "Fulfillment Board"
+    caption: "A color-coded dispatch board that let the fulfillment team stage and complete orders quickly for the correct player groups."
+    visual: "visual-grid"
+---
+
+## Context
+
+This app was built for Twitch Rivals' Streamer Bowl VII, a gameshow format featuring top Twitch creators and NFL players.
+
+Players spent a fixed budget on items with limited inventory, while a separate fulfillment team delivered the food, props, or experiences tied to those purchases. Items also unlocked in phases, controlled live by a central show operator.
+
+Before this app existed, the workflow lived in a Google Sheet. It worked, but it was clunky for handlers, difficult to manage cleanly under show pressure, and not well suited to limited inventory across multiple concurrent users.
+
+## Approach
+
+The system was designed around three connected views: a player-handler shop, an admin control surface, and a fulfillment board.
+
+The shop allowed handlers to place orders against a shared inventory pool, while the backend let production control unlock phases, adjust balances, and manage item availability in real time.
+
+Because multiple users could compete for the same finite items, the purchase flow had to behave transactionally and keep inventory accurate under concurrent use. The fulfillment board then turned those purchases into a clear dispatch workflow, using color coding to help the operations team route deliveries to the correct player groups quickly.
+
+I built the app end to end, including backend logic, real-time updates, persistence, and interface design. It was hosted persistently on my private network behind Cloudflare SSO, and product icons were sourced from artists on my team.
+
+## Outcome
+
+The biggest win was replacing a messy spreadsheet process with a purpose-built live operations tool that was easier for handlers to use and easier for production to control.
+
+That change made ordering and fulfillment more streamlined during the show, while also improving staffing efficiency for the player handler team.
+
+Just as importantly, the app made it practical to run a finite-inventory shop mechanic live without losing trust in the state of the game. Players could spend against real limits, show control could unlock items in phases, and the fulfillment team had a clearer path from order to delivery.

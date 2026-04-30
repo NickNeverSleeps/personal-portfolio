@@ -1,0 +1,41 @@
+---
+title: "EC2 Dashboard"
+subtitle: "Shared GPU server control for live production"
+category: "development"
+summary: "An internal control dashboard for starting, stopping, and assigning expensive EC2 servers across live productions."
+year: "2025"
+role: "Full Stack Development / Product Design"
+tools: ["React", "TypeScript", "AWS EC2", "Tailwind"]
+tags: ["Dashboard", "AWS", "Operations"]
+show: true
+featured: false
+thumbnail: "visual-lab"
+gallery:
+  - title: "Server Overview"
+    caption: "A single control surface for server status, live IPs, show assignment, and start-stop actions on shared GPU-backed EC2 infrastructure."
+    visual: "visual-lab"
+---
+
+## Context
+
+Broadcast teams were relying on expensive GPU-backed EC2 servers that often ran around the clock, even when no show was actively using them.
+
+That wasted budget, but it also made ownership messy. Multiple productions could share the same server, and there was no simple internal tool for engineers to see live status, confirm the current IP, or keep billing aligned with the right show.
+
+The dashboard was built as an internal, show-critical control surface for broadcast engineers. It gave the team a reliable way to manage server uptime, track which production was using each machine, and reduce cost without making the workflow harder during live operations.
+
+## Approach
+
+The product was designed around a single overview screen that engineers could read quickly under production pressure.
+
+From that surface, users could start or stop servers, confirm whether a machine was active, check its current IP when it was not static, and tag shows in or out so shared infrastructure stayed correctly assigned.
+
+The system also updated AWS EC2 tags to keep billing tied to the proper show or project. I handled the full stack build from concept through implementation, then trained the engineers who depended on it in live workflows.
+
+## Outcome
+
+The dashboard turned server control from an ad hoc engineering task into a visible, repeatable workflow.
+
+Broadcast engineers could manage shared EC2 capacity directly, avoid leaving costly machines running unnecessarily, and keep show ownership clearer across overlapping productions.
+
+The biggest measurable result was cost reduction: the tool helped save more than $45,000 per year by making it practical to stop unused GPU-backed servers instead of letting them run 24/7.

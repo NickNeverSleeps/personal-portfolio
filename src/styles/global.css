@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Inter";
+  src: local("Inter");
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  background: #050608;
+  color: #f4f0e8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(88, 215, 196, 0.12), transparent 28rem),
+    radial-gradient(circle at 84% 14%, rgba(255, 122, 89, 0.09), transparent 24rem),
+    #050608;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+::selection {
+  background: rgba(88, 215, 196, 0.28);
+  color: #ffffff;
+}
+
+.case-study :where(h2, h3) {
+  color: #f4f0e8;
+  font-family: "Space Grotesk", Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+}
+
+.case-study h2 {
+  margin-top: 2rem;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.case-study h3 {
+  margin-top: 1.4rem;
+  font-size: 1rem;
+}
+
+.case-study p,
+.case-study li {
+  color: #cbd3df;
+  line-height: 1.75;
+}
+
+.case-study ul {
+  margin-top: 0.75rem;
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.case-study a {
+  color: #58d7c4;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.visual-slate {
+  background:
+    linear-gradient(135deg, rgba(88, 215, 196, 0.28), transparent 42%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px 22px),
+    #111821;
+}
+
+.visual-ember {
+  background:
+    radial-gradient(circle at 74% 28%, rgba(255, 122, 89, 0.46), transparent 8rem),
+    linear-gradient(150deg, rgba(188, 167, 255, 0.2), transparent 48%),
+    #171016;
+}
+
+.visual-grid {
+  background:
+    linear-gradient(rgba(244, 240, 232, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 240, 232, 0.08) 1px, transparent 1px),
+    linear-gradient(135deg, #111927, #101113);
+  background-size: 28px 28px, 28px 28px, auto;
+}
+
+.visual-code {
+  background:
+    linear-gradient(90deg, rgba(88, 215, 196, 0.18), transparent),
+    repeating-linear-gradient(0deg, rgba(244, 240, 232, 0.08) 0 1px, transparent 1px 18px),
+    #071015;
+}
+
+.visual-lab {
+  background:
+    radial-gradient(circle at 30% 34%, rgba(88, 215, 196, 0.3), transparent 8rem),
+    radial-gradient(circle at 78% 72%, rgba(255, 122, 89, 0.26), transparent 10rem),
+    #101014;
+}
+
+.visual-violet {
+  background:
+    linear-gradient(135deg, rgba(188, 167, 255, 0.32), transparent 45%),
+    linear-gradient(45deg, rgba(88, 215, 196, 0.16), transparent 52%),
+    #12111c;
+}
