@@ -38,7 +38,7 @@ show: true
 featured: true
 ```
 
-Optional fields include `subtitle`, `show`, `liveUrl`, `repoUrl`, `caseStudyUrl`, `thumbnail`, and `gallery`.
+Optional fields include `subtitle`, `show`, `liveUrl`, `repoUrl`, `caseStudyUrl`, `thumbnail`, `thumbnailImage`, and `gallery`.
 
 Set `show: false` to keep an entry in the repo and content collection without rendering it on the homepage.
 
@@ -51,7 +51,28 @@ Available placeholder visual classes:
 - `visual-lab`
 - `visual-violet`
 
-To use real images later, replace `VisualPanel.astro` with an image-aware component or add image fields to the content schema.
+To use real images, place them under `public/images/work/` and reference them like this:
+
+```yaml
+thumbnailImage: "/images/work/example-thumb.png"
+gallery:
+  - title: "Detail View"
+    type: "image"
+    caption: "Optional gallery caption."
+    image: "/images/work/example-detail.png"
+```
+
+Video is also supported for gallery items:
+
+```yaml
+gallery:
+  - title: "Demo Loop"
+    type: "video"
+    caption: "Autoplaying gallery video."
+    video: "/images/work/example-demo.mp4"
+```
+
+Supported gallery types are `visual`, `image`, and `video`. If a media source is not provided, the site falls back to the existing `visual-*` placeholder styles.
 
 ## GitHub Actions + AWS Lightsail Deployment
 

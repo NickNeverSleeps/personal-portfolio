@@ -4,4 +4,9 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   integrations: [mdx()],
   site: "https://example.com",
+  vite: {
+    server: {
+      allowedHosts: [".ngrok-free.app"],
+    },
+  },
 });

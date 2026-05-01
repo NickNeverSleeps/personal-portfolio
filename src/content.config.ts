@@ -19,12 +19,16 @@ const work = defineCollection({
     repoUrl: z.url().optional(),
     caseStudyUrl: z.url().optional(),
     thumbnail: z.string().default("visual-slate"),
+    thumbnailImage: z.string().optional(),
     gallery: z
       .array(
         z.object({
           title: z.string(),
           caption: z.string(),
+          type: z.enum(["visual", "image", "video"]).default("visual"),
           visual: z.string().default("visual-slate"),
+          image: z.string().optional(),
+          video: z.string().optional(),
         }),
       )
       .default([]),
